@@ -54,18 +54,25 @@ $(document).ready(function () {
 
     callQuestion();
 
-    var number = 30;
+    var number = 15;
     var intervalId;
 
-    function timesUp() { //function that switches to answer screen when timer reaches 0
+    function run() {
+        clearInterval(intervalId);
+        intervalId = setInterval(timer, 1000);
+    }
 
-    };
 
     function timer() {
-
-        $("#timeRemaining").text("time");
+        number--;
+        $("#timeRemaining").text("Time Remaining: " + number);
+        if (number === 0) {
+            alert("times up");
+        }
     };
+
     timer();
+    run();
 
 
 })

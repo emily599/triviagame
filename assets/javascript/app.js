@@ -1,7 +1,7 @@
 var questions = [
     {
         question: "What is the name of Link's horse throughout The Legend of Zelda series?",
-        answers: ["Midna", "Epona", "Ponita", "Zora"],
+        answers: ["Midna", "Ponita", "Zora", "Epona"],
         correctAnswer: "Epona",
     },
     {
@@ -28,9 +28,11 @@ var questions = [
 
 
 var timeRemmaining;
-var totalCorrect;
-var totalIncorrect;
-var totalUnanswered;
+var totalCorrect = 0;
+var totalIncorrect = 0;
+var totalUnanswered = 0;
+
+var userAnswer;
 
 
 $(document).ready(function () {
@@ -39,12 +41,13 @@ $(document).ready(function () {
         for (var i = 0; i < questions[0].answers.length; i++) {
             var answerButton = $("<button>");
             answerButton.addClass("answer");
-
             answerButton.text(questions[0].answers[i]);
-
             $("#buttons").append(answerButton);
+
         }
     };
+
+
 
     makeAnswerButtons();
 
@@ -62,14 +65,31 @@ $(document).ready(function () {
         intervalId = setInterval(timer, 1000);
     }
 
+    $('button').click(function () {
+        console.log(($(this).text()));
+        console.log((questions[0].correctAnswer));
+        if (($(this).text()) === ((questions[0].correctAnswer))) { //if correct 
+            alert("correct");
+            totalCorrect++;
+        }
+        else { //if incorrect
+            alert("incorrect");
+            totalIncorrect++;
+        }
+    })
+
+
+
 
     function timer() {
         number--;
         $("#timeRemaining").text("Time Remaining: " + number);
-        if (number === 0) {
+        if (number === 0) {//Second scenario: if user runs out of time
             alert("times up");
+            totalUnanswered++;
         }
-    };
+
+    }
 
     timer();
     run();

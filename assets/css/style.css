@@ -5,6 +5,12 @@ html {
     font-family: 'Quicksand', sans-serif;
 
   }
+.wrapper {
+    background: rgba(196, 196, 196, 0.6);
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+}
 #background img{
     opacity:0.3;
     position: absolute;
@@ -19,29 +25,3 @@ h1 {
 }
 
 
-#timeRemaining {
-    background: rgba(196, 196, 196, 0.6);
-    margin: 20px;
-    padding: 20px;
-    text-align: center;
-
-    
-
-}
-
-#question {
-    background: rgba(196, 196, 196, 0.6);
-    margin: 20px;
-    padding: 20px;
-    text-align: center;
-
-}
-
-#buttons {
-    background: rgba(196, 196, 196, 0.6);
-    margin: 20px;
-    padding: 20px;
-    text-align: center;
-
-
-}

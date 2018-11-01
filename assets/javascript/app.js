@@ -69,8 +69,11 @@ $(document).ready(function () {
         $("#question").text("Correct!");
         $("#buttons").text("Correct Answer: " + (questions[0].correctAnswer));
         clearInterval(intervalId);
-    }
+        var nextQuestion = $("<button>");
+        $("#nextQuestion").append(nextQuestion);
+        nextQuestion.text("Next Question");
 
+    }
     function incorrectClear() {
         $("#question").text("Incorrect!");
         $("#buttons").text("Correct Answer: " + (questions[0].correctAnswer));
@@ -81,9 +84,6 @@ $(document).ready(function () {
         $("#buttons").text("Correct Answer: " + (questions[0].correctAnswer));
         clearInterval(intervalId);
     }
-
-
-
     $('button').click(function () {
         console.log(($(this).text()));
         console.log((questions[0].correctAnswer));
@@ -99,10 +99,6 @@ $(document).ready(function () {
 
         }
     })
-
-
-
-
     function timer() {
         number--;
         $("#timeRemaining").text("Time Remaining: " + number);

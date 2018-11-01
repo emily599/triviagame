@@ -33,31 +33,46 @@ var totalIncorrect = 0;
 var totalUnanswered = 0;
 
 var userAnswer;
+var index = 0;
 
 
 $(document).ready(function () {
 
     function makeAnswerButtons() { //creates buttons
-        for (var i = 0; i < questions[0].answers.length; i++) {
+        for (var i = 0; i < questions[index].answers.length; i++) {
             var answerButton = $("<button>");
             answerButton.addClass("answer");
-            answerButton.text(questions[0].answers[i]);
+            answerButton.text(questions[index].answers[i]);
             $("#buttons").append(answerButton);
+
 
         }
     };
+
+    function end() {
+
+        $("#question").text("Total Correct: " + totalCorrect);
+        $("#buttons").text("Total Incorrect: " + totalIncorrect);
+        $("#nextQuestion").text("Total Unanswered: " + totalUnanswered);
+        $("#nextQuestion").append("<br></br>");
+        var restart = $("<button>");
+        $("#nextQuestion").append(restart);
+        restart.text("Restart");
+
+
+    }
 
 
 
     makeAnswerButtons();
 
     function callQuestion() { //shows question
-        $("#question").text(questions[0].question);
+        $("#question").text(questions[index].question);
     };
 
     callQuestion();
 
-    var number = 15;
+    var number = 16;
     var intervalId;
 
     function run() {
@@ -65,38 +80,38 @@ $(document).ready(function () {
         intervalId = setInterval(timer, 1000);
     }
 
-    function correctClear() {
-        $("#question").text("Correct!");
-        $("#buttons").text("Correct Answer: " + (questions[0].correctAnswer));
+    function clear(response) {
+        $("#question").text(response);
+        $("#buttons").text("Correct Answer: " + (questions[index].correctAnswer));
         clearInterval(intervalId);
-        var nextQuestion = $("<button>");
-        $("#nextQuestion").append(nextQuestion);
-        nextQuestion.text("Next Question");
+        if (questions.length - 1 === index) {
+            var nextQuestion = $("<button>");
+            $("#nextQuestion").append(nextQuestion);
+            nextQuestion.text("Results");
+
+
+        }
+        else {
+            var nextQuestion = $("<button>");
+            $("#nextQuestion").append(nextQuestion);
+            nextQuestion.text("Next Question");
+
+        }
 
     }
-    function incorrectClear() {
-        $("#question").text("Incorrect!");
-        $("#buttons").text("Correct Answer: " + (questions[0].correctAnswer));
-        clearInterval(intervalId);
-    }
-    function timesUpClear() {
-        $("#question").text("Time's Up!");
-        $("#buttons").text("Correct Answer: " + (questions[0].correctAnswer));
-        clearInterval(intervalId);
-    }
-    $('button').click(function () {
+
+    $('body').on("click", ".answer", function () {
         console.log(($(this).text()));
-        console.log((questions[0].correctAnswer));
-        if (($(this).text()) === ((questions[0].correctAnswer))) { //if correct 
+        console.log((questions[index].correctAnswer));
+        if (($(this).text()) === ((questions[index].correctAnswer))) { //if correct 
             // alert("correct");
             totalCorrect++;
-            correctClear();
+            clear("Correct!");
         }
         else { //if incorrect
             // alert("incorrect");
             totalIncorrect++;
-            incorrectClear();
-
+            clear("Incorrect!");
         }
     })
     function timer() {
@@ -105,11 +120,44 @@ $(document).ready(function () {
         if (number === 0) { //if time runs out
             // alert("times up");
             totalUnanswered++;
-            timesUpClear();
+            clear("Time's Up!");
 
         }
 
     }
+
+    $("#nextQuestion").click(function () {
+        console.log($("button").text());
+        if ($("button").text() === "Restart") {
+            index = 0;
+            number = 16;
+            run();
+            $("#buttons").html("");
+            makeAnswerButtons();
+            $("#nextQuestion").html("");
+            callQuestion();
+            totalCorrect = 0;
+            totalIncorrect = 0;
+            totalUnanswered = 0;
+
+        }
+        if ($("button").text() === "Results") {
+            end();
+
+        }
+        else {
+            index++;
+            number = 16;
+            run();
+            $("#buttons").html("");
+            makeAnswerButtons();
+            $("#nextQuestion").html("");
+            callQuestion();
+        }
+
+
+
+    })
 
     timer();
     run();

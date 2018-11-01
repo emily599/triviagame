@@ -65,16 +65,38 @@ $(document).ready(function () {
         intervalId = setInterval(timer, 1000);
     }
 
+    function correctClear() {
+        $("#question").text("Correct!");
+        $("#buttons").text("Correct Answer: " + (questions[0].correctAnswer));
+        clearInterval(intervalId);
+    }
+
+    function incorrectClear() {
+        $("#question").text("Incorrect!");
+        $("#buttons").text("Correct Answer: " + (questions[0].correctAnswer));
+        clearInterval(intervalId);
+    }
+    function timesUpClear() {
+        $("#question").text("Time's Up!");
+        $("#buttons").text("Correct Answer: " + (questions[0].correctAnswer));
+        clearInterval(intervalId);
+    }
+
+
+
     $('button').click(function () {
         console.log(($(this).text()));
         console.log((questions[0].correctAnswer));
         if (($(this).text()) === ((questions[0].correctAnswer))) { //if correct 
-            alert("correct");
+            // alert("correct");
             totalCorrect++;
+            correctClear();
         }
         else { //if incorrect
-            alert("incorrect");
+            // alert("incorrect");
             totalIncorrect++;
+            incorrectClear();
+
         }
     })
 
@@ -84,9 +106,11 @@ $(document).ready(function () {
     function timer() {
         number--;
         $("#timeRemaining").text("Time Remaining: " + number);
-        if (number === 0) {//Second scenario: if user runs out of time
-            alert("times up");
+        if (number === 0) { //if time runs out
+            // alert("times up");
             totalUnanswered++;
+            timesUpClear();
+
         }
 
     }

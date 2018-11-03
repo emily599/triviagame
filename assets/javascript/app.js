@@ -38,6 +38,23 @@ var index = 0;
 
 $(document).ready(function () {
 
+    var start = $("<button>");
+    start.text("Start");
+    $("#buttons").append(start);
+
+    $("#buttons").on("click", function () {
+        startGame();
+
+    })
+
+
+    function startGame() {
+        makeAnswerButtons();
+        callQuestion();
+        timer();
+        run();
+    }
+
     function makeAnswerButtons() { //creates buttons
         for (var i = 0; i < questions[index].answers.length; i++) {
             var answerButton = $("<button>");
@@ -64,13 +81,13 @@ $(document).ready(function () {
 
 
 
-    makeAnswerButtons();
+    //makeAnswerButtons();
 
     function callQuestion() { //shows question
         $("#question").text(questions[index].question);
     };
 
-    callQuestion();
+    // callQuestion();
 
     var number = 16;
     var intervalId;
@@ -84,6 +101,7 @@ $(document).ready(function () {
         $("#question").text(response);
         $("#buttons").text("Correct Answer: " + (questions[index].correctAnswer));
         clearInterval(intervalId);
+
         if (questions.length - 1 === index) {
             var nextQuestion = $("<button>");
             $("#nextQuestion").append(nextQuestion);
@@ -159,8 +177,8 @@ $(document).ready(function () {
 
     })
 
-    timer();
-    run();
+    //timer();
+    //   run();
 
 
 })
